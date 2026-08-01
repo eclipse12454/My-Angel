@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Our Universe"
+description = "A beautiful interactive celestial love letter web experience with starfields, portal animations, polaroid galleries, flip cards, story chapters, and a star-heart finale. Shared as a live web app."
+version = "1.0.0"
+id = "artifacts/our-universe"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22839
+
+[services.development]
+run = "pnpm --filter @workspace/our-universe run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/our-universe", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/our-universe/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22839"
+BASE_PATH = "/"
